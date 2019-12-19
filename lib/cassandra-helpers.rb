@@ -47,6 +47,12 @@ module CassandraHelpers
     end
   end
 
+  def find_record(session, table, keys)
+    cql = "SELECT * FROM #{Cassandra::Util.escape_name(table.name)} WHERE "
+    cql += table.primary_key.map { |key| "#{Cassandra::Util.escape_name(key.name)} = #{Cassandra::Util.encode_object(keys[key.name])}" }.join(' AND ')
+    execute_query(session,  cql)
+  end
+
   def each_record(session, cql, page_size = 100)
     result = execute_query(session, cql, page_size: page_size)
     loop do

@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'cassandra-helpers'
-  s.version     = '0.1.1'
+  s.version     = '0.1.2'
   s.licenses    = ['MIT']
   s.summary     = 'Cassandra Helper Methods'
   s.description = 'Utility methods for working with Cassandra'

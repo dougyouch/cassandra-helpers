@@ -49,7 +49,7 @@ module CassandraHelpers
 
   def find_record(session, table, keys)
     cql = "SELECT * FROM #{Cassandra::Util.escape_name(table.name)} WHERE "
-    cql += table.primary_key.map { |key| "#{Cassandra::Util.escape_name(key.name)} = #{Cassandra::Util.encode_object(keys[key.name])}" }.join(' AND ')
+    cql += table.primary_key.map { |key| keys[key.name] ? "#{Cassandra::Util.escape_name(key.name)} = #{Cassandra::Util.encode_object(keys[key.name])}" : nil }.compact.join(' AND ')
     execute_query(session,  cql)
   end
 
